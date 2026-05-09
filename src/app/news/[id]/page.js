@@ -1,90 +1,94 @@
-import CommentSection from "@/app/components/CommentSection";
+"use client";
+import React, { use, useState } from "react";
 import PopularSidebar from "@/app/components/PopularSidebar";
 import SidebarMore from "@/app/components/SidebarMore";
 import AuthSidebar from "@/app/components/AuthSidebar";
-import AuthFooter from "@/app/components/AuthFooter";
-import "@/app/styles/globals.css";
-
-// 1. IMPORT DATA DARI FILE PUSAT
+import CommentSection from "@/app/components/CommentSection"; // Import komponen baru
 import { allNewsData } from "@/data/dummyNews";
+import "@/app/styles/articleDetail.css";
 
 export default function ArticleDetail({ params }) {
-  const { id } = params;
+  const { id } = use(params);
+  const [isFullArticle, setIsFullArticle] = useState(false);
+  
+  // Mencari data berdasarkan ID dari dummy
+  const article = allNewsData.find((item) => item.id === id);
 
-  // 2. CARI DATA BERDASARKAN ID (Gunakan .find karena di dummyNews itu Array)
-  const article = allNewsData.find((item) => item.id == id);
-
-  // Jika ID tidak ditemukan, tampilkan pesan error atau 404
-  if (!article) {
-    return (
-      <div className="error-container" style={{ padding: '100px', textAlign: 'center' }}>
-        <h1>404</h1>
-        <p>Berita tidak ditemukan!</p>
-      </div>
-    );
-  }
+  if (!article) return <div className="error-msg">Artikel Tidak Ditemukan</div>;
 
   return (
-    <div className="article-detail-page">
-      <div className="container">
-        {/* --- MAIN CONTENT AREA (Kiri) --- */}
-        <div className="main-content">
-          <article className="full-article">
-            {/* Header: Kategori, Gambar, Judul */}
-            <div className="article-header">
-              <span className="category-label">{article.category}</span>
-              <img src={article.heroImage || article.image} alt="Main Article" className="hero-image" />
-              <h1 className="article-title">{article.title}</h1>
+    <div className="article-detail-wrapper">
+      <div className="container-custom">
+        <main className="main-content">
+          <article className="article-card">
+            {/* Hero Image & Category Badge */}
+            <div className="hero-section">
+              <span className="floating-badge">{article.category}</span>
+              <img src={article.image} alt={article.title} className="hero-img-full" />
             </div>
 
-            {/* Meta Author */}
-            <div className="author-meta">
-              <img src={article.authorImage || "https://via.placeholder.com/40"} alt={article.author} className="author-avatar" />
+            {/* Headline Editorial */}
+            <h1 className="article-title-main">{article.title}</h1>
+
+            {/* Meta Penulis & Tanggal */}
+            <div className="author-meta-row">
               <div className="author-info">
-                <strong>{article.author}</strong>
-                <p>{article.date} • {article.readTime || "2 MIN READ SUMMARY"}</p>
+                <img src={article.authorImage || "/img/author.png"} alt={article.author} className="author-avatar" />
+                <div className="author-details">
+                  <span className="author-name">{article.author}</span>
+                  <span className="author-role">{article.role || "Jurnalis"}</span>
+                </div>
+              </div>
+              <div className="article-date-meta">
+                <span className="publish-date">{article.date}</span>
+                <span className="read-summary-badge">{article.readTime}</span>
               </div>
             </div>
 
-            {/* Ringkasan Isi Artikel */}
-            <div className="article-body">
-              {/* Pakai summary atau description sebagai cadangan */}
-              <p>{article.summary || article.description}</p>
-              <button className="view-full-article-btn">VIEW FULL ARTICLE</button>
+            {/* Konten Artikel */}
+            <div className="article-content-body">
+              <p className="summary-paragraph">{article.description}</p>
+              
+              {!isFullArticle ? (
+                <div className="view-full-section">
+                  <button className="btn-view-full-article" onClick={() => setIsFullArticle(true)}>
+                    VIEW FULL ARTICLE
+                  </button>
+                </div>
+              ) : (
+                <div className="full-text-animation">
+                  {/* Gunakan summary/content dari dummy */}
+                  <p>{article.summary}</p>
+                  <p>{article.content || "Konten lengkap artikel tersedia untuk dibaca lebih lanjut..."}</p>
+                </div>
+              )}
             </div>
 
-            {/* Reactions Bar (Hanya muncul jika ada data reactions) */}
-            {article.reactions && (
-              <div className="reactions-bar">
-                {Object.entries(article.reactions).map(([type, count]) => {
-                  const emojis = { clap: '👏', light: '💡', idea: '🤔', love: '❤️', star: '⭐', hot: '🔥' };
-                  return (
-                    <span key={type} className="reaction-item">
-                      {emojis[type]} {count}
-                    </span>
-                  );
-                })}
+            {/* Bar Reaksi */}
+            <div className="article-footer-interaction">
+              <div className="reactions-pill-group">
+                <span className="react-label">REACTIONS:</span>
+                {article.reactions && (
+                  <>
+                    <div className="pill-item">👏 {article.reactions.clap}</div>
+                    <div className="pill-item">💡 {article.reactions.light}</div>
+                    <div className="pill-item">🤔 {article.reactions.idea || article.reactions.think}</div>
+                  </>
+                )}
+                {/* Fallback jika data reaksi lain tidak ada di dummy tertentu */}
+                <div className="pill-item">❤️ {article.reactions?.heart || 0}</div>
               </div>
-            )}
-
-            {/* SHARE THIS STORY */}
-            <div className="share-story">
-              <span>SHARE THIS STORY:</span>
-              <button className="share-btn">🔗</button>
-              <button className="share-btn">📝</button>
             </div>
+
+            {/* KOMPONEN COMMENT SECTION BARU */}
+            <CommentSection articleId={article.id} />
+            
           </article>
+        </main>
 
-          {/* Section Komentar & Ajakan Login/Daftar */}
-          <CommentSection />
-          <AuthFooter />
-        </div>
-
-        {/* --- SIDEBAR AREA (Kanan) --- */}
         <aside className="sidebar">
           <PopularSidebar />
           <AuthSidebar />
-          {/* Kirim kategori ke SidebarMore untuk artikel terkait */}
           <SidebarMore category={article.category} />
         </aside>
       </div>

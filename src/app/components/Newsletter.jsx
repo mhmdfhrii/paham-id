@@ -1,5 +1,6 @@
 "use client";
 import Link from 'next/link';
+import "../styles/newsletter.css";
 
 export default function NewsletterBox() {
   return (

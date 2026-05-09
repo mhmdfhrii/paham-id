@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 // Import komponen dari folder baru yang sudah kita rapikan
 import MainTrending from "./components/MainTrending";
-import TrendingSection from "./components/TrendingSection";
+import Main from "./components/Main";
 import Newsletter from "./components/Newsletter";
 
 export default function HomePage() {
@@ -16,7 +16,7 @@ export default function HomePage() {
 
       {/* 2. Area Trending List */}
       <section className="list-section">
-        <TrendingSection />
+        <Main />
         <Newsletter />
       </section>
     </main>

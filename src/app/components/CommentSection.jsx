@@ -1,58 +1,66 @@
 "use client";
-import React from 'react';
-// Import data dari file pusat
+import React from "react";
 import { dummyComments } from "@/data/dummyNews";
+import AuthFooter from "@/app/components/AuthFooter";
 
 export default function CommentSection() {
   return (
     <section className="comment-section">
-      <h3 className="section-title">Komentar</h3>
-      
-      {/* Area Input Komentar */}
-      <div className="comment-input-area">
-        <div className="comment-bubble input-bubble">
-          <div className="comment-main-row" style={{ display: 'flex', gap: '15px' }}>
-            {/* Avatar Dummy */}
-            <div style={{
-              width: '40px', height: '40px', backgroundColor: '#ddd', 
-              borderRadius: '50%', flexShrink: 0 
-            }}></div>
-            
-            <textarea 
-              placeholder="Add to the conversation..."
-              style={{
-                width: '100%', border: 'none', outline: 'none', 
-                resize: 'none', fontSize: '15px', paddingTop: '10px'
-              }}
-            ></textarea>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-            <button className="btn-post">Post Comment</button>
-          </div>
+      {/* Share Section */}
+      <div className="share-story-bar">
+        <span className="share-label">SHARE THIS STORY:</span>
+        <div className="share-actions">
+          <button className="icon-btn-round">
+            <img src="/img/share.png" alt="Share" />
+          </button>
+          <button className="icon-btn-round">
+            <img src="/img/simpan.png" alt="Simpan" />
+          </button>
         </div>
       </div>
 
-      {/* List Komentar dari dummyNews.jsx */}
-      <div className="comment-list">
-        {dummyComments.map((c) => (
-          <div key={c.id} className="comment-bubble list-bubble">
-            <div className="avatar-dummy" style={{
-              width: '40px', height: '40px', backgroundColor: '#1a3a5c', 
-              borderRadius: '50%', flexShrink: 0 
-            }}></div>
-            
-            <div className="comment-content">
-              <div style={{ marginBottom: '5px' }}>
-                <strong>{c.author}</strong> 
-                <small style={{ color: '#999', marginLeft: '8px' }}>• {c.time}</small>
+      {/* Header Komentar */}
+      <div className="comment-header-row">
+        <h2 className="comment-title">Komentar</h2>
+        <span className="comment-badge">12 Comments</span>
+      </div>
+
+      {/* Input Utama */}
+      <div className="comment-input-card">
+        <div className="input-row-top">
+          <img src="/img/user-avatar.png" className="avatar-small" alt="User" />
+          <div className="input-field-pill">
+            <textarea placeholder="Add to the conversation..."></textarea>
+          </div>
+        </div>
+        <div className="input-row-bottom">
+          <button className="btn-post-comment">Post Comment</button>
+        </div>
+      </div>
+
+      {/* List Komentar Bubble */}
+      <div className="comments-list">
+        {dummyComments.map((comment) => (
+          <div key={comment.id} className="comment-item-row">
+            <img 
+              src={comment.avatar || "/img/author.png"} 
+              className="avatar-small" 
+              alt={comment.author} 
+            />
+            <div className="comment-capsule">
+              <div className="comment-meta-info">
+                <span className="comment-user-name">{comment.author}</span>
+                <span className="meta-dot">•</span>
+                <span className="comment-time-text">{comment.time}</span>
               </div>
-              <p style={{ fontSize: '14px', color: '#333', margin: 0, lineHeight: '1.5' }}>
-                {c.text}
-              </p>
+              <p className="comment-body-text">{comment.text}</p>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Komponen Baru di Bawah Komentar */}
+      <AuthFooter />
     </section>
   );
 }
