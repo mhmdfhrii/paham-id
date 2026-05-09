@@ -183,7 +183,6 @@
   color: #666;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Batasi teks paragraf 2 baris saja */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -324,4 +323,34 @@
 .icon-item:hover {
   transform: translateY(-3px);
   background-color: #f0f0f0;
+}
+
+
+/* Menghilangkan garis bawah pada seluruh pembungkus kartu */
+.card-anchor, 
+.view-all-link {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+/* Memastikan elemen teks di dalam kartu juga tidak memiliki garis bawah */
+.card-anchor *, 
+.view-all-link * {
+  text-decoration: none !important;
+}
+
+/* Styling tambahan agar judul tetap terlihat seperti Paham.id */
+.card-anchor:hover .serif-title,
+.card-anchor:hover h3 {
+  color: #d15a7c; /* Warna pink saat hover sebagai pengganti underline */
+  transition: color 0.2s ease;
+}
+
+/* Memastikan spasi grid tetap rapi sesuai gambar */
+.trending-layout {
+  display: grid;
+  grid-template-columns: 2.5fr 1.2fr;
+  gap: 40px;
+  margin: 40px 0;
 }
