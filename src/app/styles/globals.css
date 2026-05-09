@@ -1,0 +1,165 @@
+/* --- CONTAINER UTAMA --- */
+.header-container {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- BENTO GRID LAYOUT --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr; /* Bagian kiri lebih lebar */
+  gap: 24px;
+  height: 520px;
+}
+
+/* --- KARTU UTAMA (KIRI) --- */
+.bento-main {
+  position: relative;
+  height: 100%;
+  border-radius: 40px; /* Lengkungan besar sesuai gambar */
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bento-main:hover {
+  transform: scale(1.01);
+}
+
+.bento-overlay {
+  padding: 50px;
+  width: 100%;
+  color: white;
+}
+
+.cat-label-special {
+  background: #FFD9DE; /* Pink pastel sesuai gambar */
+  color:#900038;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.heavitas-font {
+  font-family: 'Heavitas', serif;
+  font-size: 48px; /* Ukuran besar sesuai gambar */
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: 15px;
+  color: white;
+  text-transform: uppercase;
+  width: 750px;
+  height: 160px;
+}
+
+.bento-overlay p {
+  font-size: 16px;
+  font-family: "SF UI Text", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 85%;
+  margin-bottom: 30px;
+}
+
+.bento-footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-read {
+  background: #001a2c; /* Biru gelap Navy */
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-read:hover {
+  background: #003559;
+}
+
+.meta-info {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* --- KARTU SAMPING (KANAN) --- */
+.bento-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.bento-small {
+  flex: 1;
+  border-radius: 40px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #172554;
+  transition: 0.3s ease;
+}
+
+.cat-label-secondary {
+  background: #D1E2EC;
+  backdrop-filter: blur(5px);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.bento-small h3 {
+  font-family: 'Newsreader', serif;
+  font-size: 22px;
+  color: white;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* --- LINK RESET --- */
+.bento-link, .bento-small-link {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .bento-main {
+    height: 450px;
+  }
+  .bento-small {
+    height: 280px;
+  }
+  .heavitas-font {
+    font-size: 32px;
+  }
+}
+

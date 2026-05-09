@@ -1,4 +1,5 @@
 "use client";
+<<<<<<< HEAD
 import { useState } from 'react';
 import TrendingCard from './TrendingCard';
 import SidebarTrending from './SidebarTrending';
@@ -76,6 +77,26 @@ export default function Main() {
         <div className="trending-left">
           <div className="trending-header">
             <h2 className="serif-title">Trending News</h2>
+=======
+import React from 'react';
+import TrendingCard from './TrendingCard';
+import SidebarTrending from './SidebarTrending';
+import { allNewsData } from "@/data/dummyNews";
+import "@/app/styles/mainTrending.css";
+
+export default function TrendingSection() {
+  // Ambil data dari index 0 sampai 4 untuk grid trending
+  const trendingNews = allNewsData.slice(0, 4);
+
+  return (
+    <div className="main-wrapper">
+      <section className="trending-layout">
+        {/* AREA KIRI: GRID BERITA */}
+        <div className="trending-left">
+          <div className="trending-header">
+            <h2 className="serif-title italic">Trending News</h2>
+            <div className="header-divider"></div>
+>>>>>>> 6b71656 (update project)
             <span className="view-all">VIEW ALL</span>
           </div>
           
@@ -86,7 +107,14 @@ export default function Main() {
           </div>
         </div>
 
+<<<<<<< HEAD
         <SidebarTrending />
+=======
+        {/* AREA KANAN: SIDEBAR */}
+        <div className="trending-right">
+           <SidebarTrending />
+        </div>
+>>>>>>> 6b71656 (update project)
       </section>
     </div>
   );

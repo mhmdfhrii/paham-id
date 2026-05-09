@@ -1,5 +1,9 @@
 "use client";
 import Link from 'next/link';
+<<<<<<< HEAD
+=======
+import "../styles/newsletter.css";
+>>>>>>> 6b71656 (update project)
 
 export default function NewsletterBox() {
   return (
