@@ -1,83 +1,483 @@
-.auth-container {
+/* =============================================
+   AUTH.CSS — Paham.ID Auth Pages
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ─── CSS VARIABLES ─────────────────────────── */
+:root {
+  --navy:           #1a3c5e;
+  --navy-dark:      #132d47;
+  --navy-mid:       #1e4976;
+  --navy-light:     #2a6099;
+  --gold:           #f0a500;
+  --gold-hover:     #e09400;
+  --white:          #ffffff;
+  --text-dark:      #0d2137;
+  --text-muted:     #6b8aaa;
+  --input-bg:       #17334f;
+  --input-bg-light: #e8eef5;
+  --shadow:         0 20px 60px rgba(10, 25, 47, 0.5);
+  --radius-sm:      10px;
+}
+
+/* ─── RESET / BASE ──────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── ANIMATION ─────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =============================================
+   SIGN IN PAGE  — background murni, no card
+   ============================================= */
+
+.auth-clean-page.login-final-container {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-/* REGISTER LAYOUT */
-.register-layout {
-  background: linear-gradient(to right, #e0e0e0 40%, #164e77 40%);
+/* Background image penuh */
+.login-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/img/signinbg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.register-left {
-  flex: 4;
+/* Konten transparan — tidak ada kotak */
+.login-content-wrapper {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 48px 44px 40px;
+  width: 100%;
+  max-width: 420px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Logo bulat */
+.login-logo-img-wrapper {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 24px rgba(26,60,94,0.4);
+  flex-shrink: 0;
+}
+
+.login-custom-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Title */
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  /* Warna disesuaikan background — ubah ke var(--text-dark) jika bg terang */
+  color: var(--white);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  letter-spacing: -0.5px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* Form */
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.login-input-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--white);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+}
+
+.login-input-wrapper {
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
-.register-right {
-  flex: 6;
-  color: white;
-  padding: 50px;
+.login-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.logo-section img {
-  width: 150px;
+.login-input-wrapper input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  padding: 12px 42px 12px 42px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-/* INPUT STYLES */
-.input-wrapper {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 25px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
+.login-input-wrapper input::placeholder {
+  color: #5a7a99;
 }
 
-.input-wrapper input {
+.login-input-wrapper input:focus {
+  border-color: var(--navy-light);
+  background: #1c3e5e;
+  box-shadow: 0 0 0 3px rgba(42, 96, 153, 0.2);
+}
+
+/* Tombol show/hide password */
+.login-eye-btn {
+  position: absolute;
+  right: 12px;
   background: transparent;
   border: none;
-  color: white;
-  outline: none;
-  width: 100%;
-  padding-left: 10px;
-}
-
-.btn-register {
-  background: #ffb800;
-  color: #000;
-  border: none;
-  padding: 12px;
-  border-radius: 25px;
-  width: 100%;
-  font-weight: bold;
   cursor: pointer;
-  margin-top: 20px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 0.2s;
 }
 
-/* LOGIN SPECIFIC */
-.login-bg {
-  background-color: #164e77;
+.login-eye-btn:hover {
+  color: var(--white);
 }
 
-.login-card {
+/* Tombol Sign In — gold supaya kontras di atas gambar */
+.login-btn-submit {
+  margin-top: 6px;
+  width: 100%;
+  padding: 13px;
+  background: var(--gold);
+  color: var(--text-dark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(240,165,0,0.4);
+}
+
+.login-btn-submit:hover {
+  background: var(--gold-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(240,165,0,0.45);
+}
+
+.login-btn-submit:active {
+  transform: translateY(0);
+}
+
+.login-footer-text {
+  margin-top: 22px;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.85);
   text-align: center;
-  width: 400px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.2);
 }
 
-.auth-title {
-  font-family: serif;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.login-footer-text a {
+  color: var(--gold);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
-.input-group.dark .input-wrapper {
-  background: #cbd5e0;
+.login-footer-text a:hover {
+  color: var(--gold-hover);
+  text-decoration: underline;
 }
 
-.input-group.dark input {
-  color: #333;
+/* Required star (shared) */
+.reg-star {
+  color: #e53e3e;
+  margin-left: 2px;
+}
+
+
+/* =============================================
+   REGISTER PAGE
+   ============================================= */
+
+.reg-final-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0d1f33;
+}
+
+/* Background image gelombang register */
+.reg-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/img/reg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Two-column card */
+.reg-content-split {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 900px;
+  min-height: 580px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Sisi Kiri — putih */
+.reg-left-side {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+}
+
+.reg-logo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.reg-main-icon {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 22px;
+  box-shadow: 0 8px 28px rgba(26,60,94,0.18);
+}
+
+.reg-main-text {
+  width: 160px;
+  object-fit: contain;
+}
+
+/* Sisi Kanan — navy gelap */
+.reg-right-side {
+  background: var(--navy-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 44px 40px 36px;
+}
+
+.reg-form-container {
+  width: 100%;
+  max-width: 360px;
+}
+
+.reg-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.reg-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+.reg-actual-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.reg-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reg-input-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.reg-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.reg-icon {
+  position: absolute;
+  left: 13px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.reg-input-wrapper input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1.5px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  /* padding kanan 40px untuk tombol eye */
+  padding: 11px 40px 11px 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.reg-input-wrapper input::placeholder {
+  color: #5a7a99;
+}
+
+.reg-input-wrapper input:focus {
+  border-color: var(--navy-light);
+  background: #1c3e5e;
+  box-shadow: 0 0 0 3px rgba(42, 96, 153, 0.2);
+}
+
+/* Tombol show/hide password */
+.reg-eye-btn {
+  position: absolute;
+  right: 11px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.reg-eye-btn:hover {
+  color: var(--white);
+}
+
+/* Tombol Create Account — gold */
+.reg-btn-submit {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  background: var(--gold);
+  color: var(--text-dark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(240,165,0,0.35);
+}
+
+.reg-btn-submit:hover {
+  background: var(--gold-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 26px rgba(240,165,0,0.4);
+}
+
+.reg-btn-submit:active {
+  transform: translateY(0);
+}
+
+.reg-footer-link {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  text-align: center;
+}
+
+.reg-footer-link a {
+  color: var(--gold);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.reg-footer-link a:hover {
+  color: var(--gold-hover);
+  text-decoration: underline;
+}
+
+
+/* ─── RESPONSIVE ────────────────────────────── */
+@media (max-width: 700px) {
+  .reg-content-split {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    border-radius: 22px;
+    margin: 20px;
+    min-height: unset;
+  }
+
+  .reg-left-side {
+    padding: 28px 24px 20px;
+  }
+
+  .reg-right-side {
+    padding: 28px 28px 36px;
+  }
+
+  .login-content-wrapper {
+    padding: 36px 24px 32px;
+    margin: 20px;
+  }
 }
